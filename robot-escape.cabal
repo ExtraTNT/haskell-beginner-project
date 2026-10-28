@@ -1,0 +1,98 @@
+cabal-version:      2.4
+name:               robot-escape
+version:            0.1.0.0
+synopsis:           Program a robot out of a maze: a first Haskell project for kids
+category:           Education, Game
+build-type:         Simple
+extra-doc-files:
+  README.md
+  CHEATSHEET.md
+  CHEATSHEET_DE.md
+
+common shared
+  default-language: Haskell2010
+  build-depends:    base >=4.12 && <5
+
+-- The engine. Kids only import Robot and Levels.
+library
+  import:           shared
+  hs-source-dirs:   src
+  exposed-modules:
+    Robot
+    Robot.Explore
+    Levels
+  other-modules:
+    Robot.Core
+    Robot.Draw
+    Robot.Play
+  build-depends:    containers >=0.6 && <0.9
+  ghc-options:      -Wall
+
+-- The kids' files: cabal run level1, cabal repl level1, ...
+common level
+  import:           shared
+  hs-source-dirs:   levels
+  build-depends:    robot-escape
+
+executable level1
+  import:           level
+  main-is:          Level1.hs
+
+executable level2
+  import:           level
+  main-is:          Level2.hs
+
+executable level3
+  import:           level
+  main-is:          Level3.hs
+
+executable level4
+  import:           level
+  main-is:          Level4.hs
+
+executable level5
+  import:           level
+  main-is:          Level5.hs
+
+executable level6
+  import:           level
+  main-is:          Level6.hs
+
+executable level7
+  import:           level
+  main-is:          Level7.hs
+
+executable level8
+  import:           level
+  main-is:          Level8.hs
+
+executable level9
+  import:           level
+  main-is:          Level9.hs
+
+executable level10
+  import:           level
+  main-is:          Level10.hs
+
+executable level11
+  import:           level
+  main-is:          Level11.hs
+
+executable level12
+  import:           level
+  main-is:          Level12.hs
+
+-- Drive the robot by hand and see what every move and sensor does.
+executable explore
+  import:           shared
+  hs-source-dirs:   explore
+  main-is:          Explore.hs
+  build-depends:    robot-escape
+
+-- For the teacher: cabal run solutions -- [LEVEL] [DELAY_MS], or -- check.
+-- A number up to the number of levels is a level, a bigger one is a delay.
+executable solutions
+  import:           shared
+  hs-source-dirs:   solutions
+  main-is:          Solutions.hs
+  build-depends:    robot-escape
